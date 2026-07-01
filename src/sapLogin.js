@@ -30,5 +30,19 @@ export async function loginAndOpenHome(page) {
   // polling/websocket em segundo plano, entao "networkidle" praticamente
   // nunca acontece e o script ficaria travado ate estourar o timeout.
   // Esperamos por um indicador concreto de que a home carregou.
-  await page.getByText(config.sap.tileText, { exact: false }).first().waitFor({ state: 'visible', timeout: 30000 });
+  try {
+    await page.getByText(config.sap.tileText, { exact: false }).first().waitFor({ state: 'visible', timeout: 30000 });
+  } catch (err) {
+    // Diagnostico em texto puro (aparece no log do EasyPanel sem precisar
+    // extrair screenshot do container) para descobrir em que tela o
+    // navegador realmente ficou parado.
+    const url = page.url();
+    const title = await page.title().catch(() => '(erro ao ler titulo)');
+    const bodyText = await page.locator('body').innerText({ timeout: 3000 }).catch(() => '(erro ao ler texto)');
+    console.error('[sapLogin] Tile nao apareceu. Diagnostico:');
+    console.error('  URL atual:', url);
+    console.error('  Titulo:', title);
+    console.error('  Texto visivel (primeiros 500 chars):', bodyText.slice(0, 500).replace(/\n+/g, ' | '));
+    throw err;
+  }
 }
