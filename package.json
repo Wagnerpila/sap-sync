@@ -1,0 +1,18 @@
+{
+  "name": "sap-sync",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Automatiza a leitura de notas de manutencao do SAP Fiori e grava novas notas no app base44 via API",
+  "type": "module",
+  "scripts": {
+    "install-browsers": "playwright install chromium",
+    "login-debug": "node src/loginDebug.js",
+    "sync": "node src/index.js",
+    "watch": "node src/watch.js"
+  },
+  "dependencies": {
+    "@base44/sdk": "^0.8.35",
+    "dotenv": "^16.4.5",
+    "playwright": "^1.47.0"
+  }
+}

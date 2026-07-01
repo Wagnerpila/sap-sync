@@ -1,0 +1,19 @@
+[Unit]
+Description=SAP -> base44 sincronizacao continua de notas
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Ajuste o caminho e o usuario conforme o ambiente da VPS
+WorkingDirectory=/home/USUARIO/sap-sync
+ExecStart=/usr/bin/node src/watch.js
+Restart=always
+RestartSec=15
+User=USUARIO
+Environment=NODE_ENV=production
+StandardOutput=append:/home/USUARIO/sap-sync/logs/watch.log
+StandardError=append:/home/USUARIO/sap-sync/logs/watch-error.log
+
+[Install]
+WantedBy=multi-user.target
