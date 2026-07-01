@@ -23,6 +23,9 @@ export const config = {
     loginButtonSelector: process.env.SAP_LOGIN_BUTTON_SELECTOR || '#LOGIN_LINK',
     searchButtonText: process.env.SAP_SEARCH_BUTTON_TEXT || 'Iniciar',
     exportButtonText: process.env.SAP_EXPORT_BUTTON_TEXT || 'Exportar para planilha',
+    // Sessao salva (cookies) gerada por "npm run interactive-login", usada
+    // para pular o login/MFA do CyberArk nos ciclos automaticos.
+    sessionStateB64: process.env.SAP_SESSION_STATE_B64 || '',
   },
   base44: {
     appId: required('BASE44_APP_ID'),

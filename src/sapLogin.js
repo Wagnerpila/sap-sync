@@ -43,6 +43,13 @@ export async function loginAndOpenHome(page) {
     console.error('  URL atual:', url);
     console.error('  Titulo:', title);
     console.error('  Texto visivel (primeiros 500 chars):', bodyText.slice(0, 500).replace(/\n+/g, ' | '));
+    if (url.includes('cyberark')) {
+      console.error(
+        '[sapLogin] AVISO: caiu na tela do CyberArk (MFA). A sessao salva (SAP_SESSION_STATE_B64) ' +
+        'provavelmente expirou ou nao esta configurada - rode "npm run interactive-login" de novo e ' +
+        'atualize a variavel de ambiente.'
+      );
+    }
     throw err;
   }
 }

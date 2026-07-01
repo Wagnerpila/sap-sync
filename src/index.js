@@ -6,6 +6,7 @@ import { runSearch } from './runSearch.js';
 import { exportNotesViaClipboard } from './clipboardExport.js';
 import { notaJaExiste, createNote } from './base44Client.js';
 import { mapSapRowToBase44Note } from './mapRow.js';
+import { resolveStorageStatePath } from './sessionState.js';
 
 async function main() {
   console.log(`[sync] Iniciando em ${new Date().toISOString()}`);
@@ -13,7 +14,12 @@ async function main() {
   // Viewport largo e necessario: numa janela estreita o SAP esconde colunas
   // (ex: "Fim da avaria", "Notificador") da tabela responsiva, e o "Copiar
   // para clipboard" so copia o que esta realmente visivel.
-  const context = await browser.newContext({ acceptDownloads: true, viewport: { width: 1920, height: 1000 } });
+  const storageState = resolveStorageStatePath();
+  const context = await browser.newContext({
+    acceptDownloads: true,
+    viewport: { width: 1920, height: 1000 },
+    ...(storageState ? { storageState } : {}),
+  });
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   const page = await context.newPage();
 

@@ -8,7 +8,8 @@
     "install-browsers": "playwright install chromium",
     "login-debug": "node src/loginDebug.js",
     "sync": "node src/index.js",
-    "watch": "node src/watch.js"
+    "watch": "node src/watch.js",
+    "interactive-login": "node src/interactiveLogin.js"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.35",
