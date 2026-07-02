@@ -9,6 +9,7 @@
     "login-debug": "node src/loginDebug.js",
     "sync": "node src/index.js",
     "watch": "node src/watch.js",
+    "watch-local": "node src/watchLocal.js",
     "interactive-login": "node src/interactiveLogin.js"
   },
   "dependencies": {
